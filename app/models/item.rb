@@ -13,9 +13,9 @@ class Item < ApplicationRecord
   validates :name, :explanation, :price, :category, :price, presence: true
 
   # ジャンルの選択が「---」の時は保存できないようにする
-  validates :category_id, numericality: { other_than:, message: "can't be blank" }
-  validates :item_status_id, numericality: { other_than:, message: "can't be blank" }
-  validates :delivery_fee_id, numericality: { other_than:, message: "can't be blank" }
-  validates :prefecture_id, numericality: { other_than:, message: "can't be blank" }
-  validates :delivery_day_id, numericality: { other_than:, message: "can't be blank" }
+  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :item_status_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :delivery_fee_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :delivery_day_id, numericality: { other_than: 1, message: "can't be blank" }
 end

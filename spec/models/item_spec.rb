@@ -23,9 +23,9 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
       it 'nameが40字以上では出品できない' do
-        @item.name = ("a" * 41)
+        @item.name = ('a' * 41)
         @item.valid?
-        expect(@item.errors.full_messages).to include("Name is too long (maximum is 40 characters)")
+        expect(@item.errors.full_messages).to include('Name is too long (maximum is 40 characters)')
       end
       it 'explanationが空では出品できない' do
         @item.explanation = nil
@@ -33,34 +33,34 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
       it 'explanationが1000文字以上だと出品できない' do
-        @item.explanation = ("a" * 1001)
+        @item.explanation = ('a' * 1001)
         @item.valid?
-        expect(@item.errors.full_messages).to include("Explanation is too long (maximum is 1000 characters)")
+        expect(@item.errors.full_messages).to include('Explanation is too long (maximum is 1000 characters)')
       end
       it 'category_idが 1 では出品できない' do
         @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category Select")
+        expect(@item.errors.full_messages).to include('Category Select')
       end
       it 'item_status_idが 1 では出品できない' do
         @item.item_status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Item status Select")
+        expect(@item.errors.full_messages).to include('Item status Select')
       end
       it 'delivery_fee_idが 1 では出品できない' do
         @item.delivery_fee_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery fee Select")
+        expect(@item.errors.full_messages).to include('Delivery fee Select')
       end
       it 'prefecture_idが 1 では出品できない' do
         @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture Select")
+        expect(@item.errors.full_messages).to include('Prefecture Select')
       end
       it 'delivery_day_idが 1 では出品できない' do
         @item.delivery_day_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Delivery day Select")
+        expect(@item.errors.full_messages).to include('Delivery day Select')
       end
       it 'priceが空では出品できない' do
         @item.price = nil
@@ -68,29 +68,30 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it 'priceが全角数字の時は出品できない' do
-        @item.price = "１１１１１"
+        @item.price = '１１１１１'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
-      it "半角英数混合では登録できないこと" do
-        @item.price = "aaa1111"
+      it '半角英数混合では登録できないこと' do
+        @item.price = 'aaa1111'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it '半角英語だけでは登録できないこと' do
-        @item.price = "aaaaaaaaaa"
+        @item.price = 'aaaaaaaaaa'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
       it 'priceが300以下の時は出品できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than 299")
+        expect(@item.errors.full_messages).to include('Price must be greater than 299')
       end
       it 'priceが9999999以上の時は出品できない' do
-        @item.price = 10000000
+        @item.price = 10_000_000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than 10000000")
+        expect(@item.errors.full_messages).to include('Price must be less than 10000000')
+      end
     end
   end
 end
