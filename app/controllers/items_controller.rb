@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new]
   def index
-    @items = Item.order('created_at DESC')
+    @items = Item.order('created_at DESC') # 商品一覧機能実装の際に実装するもの
   end
 
   def new
