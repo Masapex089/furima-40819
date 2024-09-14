@@ -9,13 +9,13 @@ class Item < ApplicationRecord
     belongs_to :user # rubocop:disable Layout/IndentationWidth,Layout/IndentationConsistency
     has_one_attached :image # rubocop:disable Layout/IndentationWidth,Layout/IndentationConsistency
 
-  # 空の投稿を保存できないようにする
-  validates :name, :explanation, :price, :category, :price, presence: true
-
-  # ジャンルの選択が「---」の時は保存できないようにする
-  validates :category_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :item_status_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :delivery_fee_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :prefecture_id, numericality: { other_than: 1, message: "can't be blank" }
-  validates :delivery_day_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :image, presence: true
+  validates :name, presence: true, length: { maximum: 40 }
+  validates :explanation, presence: true, length: { maximum: 1000 }
+  validates :category_id, numericality: { other_than: 1, message: 'Select' }
+  validates :item_status_id, numericality: { other_than: 1, message: 'Select' }
+  validates :delivery_fee_id, numericality: { other_than: 1, message: 'Select' }
+  validates :prefecture_id, numericality: { other_than: 1, message: 'Select' }
+  validates :delivery_day_id, numericality: { other_than: 1, message: 'Select' }
+  validates :price, presence: true, numericality: { greater_than: 299, less_than: 10000000 } # rubocop:disable Style/NumericLiterals
 end
