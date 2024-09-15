@@ -7,6 +7,7 @@ class Item < ApplicationRecord
     belongs_to :delivery_day # rubocop:disable Layout/IndentationWidth,Layout/IndentationConsistency
 
     belongs_to :user # rubocop:disable Layout/IndentationWidth,Layout/IndentationConsistency
+    has_one :order # rubocop:disable Layout/IndentationWidth,Layout/IndentationConsistency
     has_one_attached :image # rubocop:disable Layout/IndentationWidth,Layout/IndentationConsistency
 
   validates :image, presence: true

@@ -1,12 +1,14 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_user!, except: :index
+  before_action :set_order, only: [:index, :create]
   def index
-    @order = Order.new(order_params)
+    @order_address = OrderAddress.new
   end
 
   def create
-    @order = Order.new(order_params)
-    if @order.valid?
-      @order.save
+    @order_address = OrderAddress.new(order_params)
+    if @order_address.valid?
+      @order_address.save
       redirect_to root_path
     else
       render 'index', status: :unprocessable_entity
@@ -16,6 +18,10 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:name, :explanation, :price, :image, :category_id, :item_status_id, :delivery_fee_id, :prefecture_id, :delivery_day_id).merge(user_id: current_user.id) # rubocop:disable Layout/LineLength
+    params.require(:order_address).permit(:post_code, :prefecture_id, :city, :block, :building_name, :phone_number).merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token]) # rubocop:disable Layout/LineLength
+  end
+
+  def set_order
+    @order = Item.find(params[:item_id])
   end
 end
