@@ -20,52 +20,52 @@ RSpec.describe OrderAddress, type: :model do
       end
     end
     context '商品購入ができない' do
-      it '郵便番号がないと登録できない' do
+      it 'post_codeがないと登録できない' do
         @order.post_code = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("Post code can't be blank")
       end
-      it '郵便番号の[-]がないと購入できない' do
+      it 'post_codeの[-]がないと購入できない' do
         @order.post_code = '1234567'
         @order.valid?
         expect(@order.errors.full_messages).to include('Post code is invalid')
       end
-      it '郵便番号は「-」の前が3桁でないと購入できない' do
+      it 'post_codeは「-」の前が3桁でないと購入できない' do
         @order.post_code = '1234-5678'
         @order.valid?
         expect(@order.errors.full_messages).to include('Post code is invalid')
       end
-      it '郵便番号は「-」の後は4桁でなければ購入できない' do
+      it 'post_codeは「-」の後は4桁でなければ購入できない' do
         @order.post_code = '123-456'
         @order.valid?
         expect(@order.errors.full_messages).to include('Post code is invalid')
       end
-      it '都道府県を選択しないと購入できない' do
+      it 'prefectureを選択しないと購入できない' do
         @order.prefecture_id = 1
         @order.valid?
         expect(@order.errors.full_messages).to include('Prefecture Select')
       end
-      it '市区町村を入力しないと購入できない' do
+      it 'cityを入力しないと購入できない' do
         @order.city = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("City can't be blank")
       end
-      it '番地を入力しないと購入できない' do
-        @order.address = nil
+      it 'blockを入力しないと購入できない' do
+        @order.block = nil
         @order.valid?
-        expect(@order.errors.full_messages).to include("Address can't be blank")
+        expect(@order.errors.full_messages).to include("Block can't be blank")
       end
-      it '電話番号を入力しないと購入できない' do
+      it 'phone_numberを入力しないと購入できない' do
         @order.phone_number = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it '電話番号が9桁以下だと登録できない' do
+      it 'phone_numberが9桁以下だと登録できない' do
         @order.phone_number = '123456789'
         @order.valid?
         expect(@order.errors.full_messages).to include('Phone number is invalid')
       end
-      it '電話番号が12桁以上だと登録できない' do
+      it 'phone_numberが12桁以上だと登録できない' do
         @order.phone_number = '123456789123'
         @order.valid?
         expect(@order.errors.full_messages).to include('Phone number is invalid')
