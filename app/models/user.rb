@@ -22,4 +22,5 @@ class User < ApplicationRecord
     validates :last_name_kana, presence: true
   end
   has_many :orders
+  has_many :items
 end
