@@ -40,5 +40,6 @@ class OrdersController < ApplicationController
 
   def move_to_index
     redirect_to root_path if current_user.id == @order.user_id
+    redirect_to root_path if @order.order.present?
   end
 end
