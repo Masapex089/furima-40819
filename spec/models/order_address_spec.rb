@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe OrderAddress, type: :model do
   before do
     user = FactoryBot.create(:user)
-    user_second = FactoryBot.create(:user)
-    item = FactoryBot.create(:item, user_id: user_second.id)
+    item = FactoryBot.create(:item)
     @order = FactoryBot.build(:order_address, item_id: item.id, user_id: user.id)
     sleep(1)
   end
@@ -25,7 +24,7 @@ RSpec.describe OrderAddress, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include("Post code can't be blank")
       end
-      it 'post_codeの[-]がないと購入できない' do
+      it 'post_codeの「-」がないと購入できない' do
         @order.post_code = '1234567'
         @order.valid?
         expect(@order.errors.full_messages).to include('Post code is invalid')
@@ -70,10 +69,25 @@ RSpec.describe OrderAddress, type: :model do
         @order.valid?
         expect(@order.errors.full_messages).to include('Phone number is invalid')
       end
+      it 'phone_numberが数字以外だと登録できない' do
+        @order.phone_number = 'aaaaaaaaaaa'
+        @order.valid?
+        expect(@order.errors.full_messages).to include('Phone number is invalid')
+      end
       it 'クレジット情報(トークン)が空だと登録できない' do
         @order.token = nil
         @order.valid?
         expect(@order.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'user_idが空だと登録できない' do
+        @order.user_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("User can't be blank")
+      end
+      it 'item_idが空だと登録できない' do
+        @order.item_id = nil
+        @order.valid?
+        expect(@order.errors.full_messages).to include("Item can't be blank")
       end
     end
   end
